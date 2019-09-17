@@ -1,6 +1,6 @@
 package algorithm;
 
-public class mergeOfTwoSorted {
+public class MergeOfTwoSorted {
 
 	public static void main(String[] args) {
 		int[] outA = findMergeSortedArrays(new int[] {1, 2}, new int[] {3, 4});

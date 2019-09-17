@@ -1,10 +1,10 @@
-package algorithm;
+package sort;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class treesort {
+public class Treesort {
 	public static void main(String[] args) {
 		System.out.println("Case I");
 		int[] numbers = new int[] {3, 7, 8, 5, 2, 1, 9, 5, 4};

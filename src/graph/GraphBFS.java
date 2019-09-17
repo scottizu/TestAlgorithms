@@ -1,10 +1,10 @@
-package algorithm;
+package graph;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Set;
 
-public class graphbfs {
+public class GraphBFS {
 	
 	public static void main(String[] args) {
 		GraphNode one = buildGraphOne();

@@ -1,6 +1,6 @@
-package algorithm;
+package sort;
 
-public class heapsort {
+public class Heapsort {
 	public static void main(String[] args) {
 		System.out.println("Case I");
 		int[] numbers = new int[] {3, 7, 8, 5, 2, 1, 9, 5, 4};

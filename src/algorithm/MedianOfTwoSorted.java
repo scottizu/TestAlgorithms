@@ -5,7 +5,7 @@ package algorithm;
  * @author sizu
  *
  */
-public class medianOfTwoSortedEvenTotal {
+public class MedianOfTwoSorted {
 	// https://leetcode.com/problems/median-of-two-sorted-arrays/
 	public static void main(String[] args) {
 		System.out.println("A. The median is "+findMedianSortedArrays(new int[] {1, 2}, new int[] {3, 4}));

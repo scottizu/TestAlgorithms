@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class mergeOfKSorted {
+public class MergeOfKSorted {
 
 	public static void main(String[] args) {
 		List<int[]> listOfSortedA = new ArrayList<int[]>();
