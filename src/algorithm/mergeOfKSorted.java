@@ -111,14 +111,11 @@ public class mergeOfKSorted {
 		int low = 0;
 		int high = linkedListOfArrayNodes.size();
 		while(high != low) {
-			int middle = (high + low)/2;
-			if(middle == high) {
-				middle = low;
-			}
+			int middle = (high + low)/2; 
 			if(newNode.value < linkedListOfArrayNodes.get(middle).value) {
-				high = middle;
+				high = middle; // middle is never equal to high
 			} else {
-				low = middle + 1;
+				low = middle + 1; // when middle is equal to low, low still changes
 			}
 		}
 		

@@ -20,6 +20,12 @@ public class medianOfTwoSortedEvenTotal {
 
 		System.out.println("F. The median is "+findMedianSortedArrays(new int[] {1, 2, 3, 4, 5, 100}, new int[] {1, 2, 6, 36, 40, 96}));
 
+		System.out.println("G. The median is "+findMedianSortedArrays(new int[] {1, 2, 3, 4, 5, 100}, new int[] {1, 6, 36, 40, 96}));
+
+		System.out.println("H. The median is "+findMedianSortedArrays(new int[] {1, 2}, new int[] {3, 4, 5}));
+
+		System.out.println("I. The median is "+findMedianSortedArrays(new int[] {0, 1, 1}, new int[] {3, 4, 5}));
+
 	}
 
 	// Assume both arrays are non empty
@@ -47,62 +53,63 @@ public class medianOfTwoSortedEvenTotal {
 		
 		int low = 0;
 		int high = length1;
+		int totalLengths = length1 + length2;
 		
-		while(true) {
-			int guess1 = (int) Math.ceil( ((double) high + (double) low) /2);
-			System.out.println("low:"+low+" high:"+high+" guess1:"+guess1);
-			
-			//int xSize1 = guess1;
-			//int xSize2 = length1 - guess1;
-
+		while(high != low) {
+			// Items to left of guess1/guess2 is less than Items to right of guess1/guess2 to if sum of lengths is odd 
 			// guess1 + guess2 = (length1 + length2)/2
-			int guess2 = (length1 + length2)/2 - guess1;
+			int guess1 = (high + low)/2;
+			int guess2 = (totalLengths)/2 - guess1; 
+			System.out.println("low:"+low+" high:"+high+" guess1:"+guess1+" guess2:"+guess2);
 			
-			//int ySize1 = guess2; // length2 - guess1
-			//int ySize2 = length2 - guess2;
-			
-			Integer xL = null;
-			if(-1 < guess1 - 1) {
-				xL = nums1[guess1 - 1];
-			}
-			Integer xH = null;
-			if(guess1 < nums1.length) {
-				xH = nums1[guess1];
-			}
-			Integer yL = null;
-			if(-1 < guess2 - 1) {
-				yL = nums2[guess2 - 1];
-			}
-			Integer yH = null;
-			if(guess2 < nums2.length) {
-				yH = nums2[guess2];
-			}
-//			System.out.println("xL:"+xL+" xH:"+xH);
-//			System.out.println("yL:"+yL+" yH:"+yH);
-
-			if(high == low) {
-				return AverageMinXHYHAndMaxXLYL(xH, yH, xL, yL);
-			}
+			Integer xL = getLow(guess1, nums1);
+			Integer yL = getLow(guess2, nums2);
+			Integer xH = getHigh(guess1, nums1);
+			Integer yH = getHigh(guess2, nums2);
 			
 			if(yH == null || xL == null || xL <= yH) {
-				// Move right
 				if(xH == null || yL == null || yL <= xH) {
-					return AverageMinXHYHAndMaxXLYL(xH, yH, xL, yL);
+					// Found
+					low = guess1;
+					high = guess1;
 				} else {
-					if(low == guess1) {
-						low = high;
-					} else {
-						low = guess1;
-					}
+					// Move right
+					low = guess1 + 1;
 				}
 			} else {
 				// Move left
-				if(high == guess1) {
-					high = low;
-				} else {
-					high = guess1;
-				}
+				high = guess1 - 1;
 			}
+		}
+
+		int guess1 = (high + low)/2;
+		int guess2 = (totalLengths)/2 - guess1;
+		System.out.println("low:"+low+" high:"+high+" guess1:"+guess1+" guess2:"+guess2);
+		
+		Integer xL = getLow(guess1, nums1);
+		Integer yL = getLow(guess2, nums2);
+		Integer xH = getHigh(guess1, nums1);
+		Integer yH = getHigh(guess2, nums2);
+		if(totalLengths % 2 == 0) {
+			return AverageMinXHYHAndMaxXLYL(xH, yH, xL, yL);
+		} else {
+			return MinXHYH(xH, yH);
+		}
+	}
+
+	private static Integer getHigh(int guess, int[] nums) {
+		if(guess < nums.length) {
+			return nums[guess];
+		} else {
+			return null;
+		}
+	}
+
+	private static Integer getLow(int guess, int[] nums) {
+		if(-1 < guess - 1) {
+			return nums[guess - 1];
+		} else {
+			return null;
 		}
 	}
 
@@ -117,26 +124,26 @@ public class medianOfTwoSortedEvenTotal {
 
 	private static double AverageMinXHYHAndMaxXLYL(Integer xH, Integer yH,
 			Integer xL, Integer yL) {
+		return ((double) MinXHYH(xH, yH) + (double) MaxXLYL(xL, yL))/2;
+	}
+
+	private static double MinXHYH(Integer xH, Integer yH) {
 		if(xH == null) {
-			if(yL == null) {
-				return ((double) yH + (double) xL)/2;
-			} else {
-				return ((double) yH + (double) Math.max(xL, yL))/2;
-			}
+			return yH;
 		} else if (yH == null) {
-			if(xL == null) {
-				return ( (double) xH + (double) yL)/2;
-			} else {
-				return ( (double) xH + (double) Math.max(xL, yL))/2;
-			}
+			return xH;
 		} else {
-			if(xL == null) {
-				return ((double) Math.min(xH, yH) + (double) yL)/2;
-			} else if (yL == null) {
-				return ((double) Math.min(xH, yH) + (double) xL)/2;
-			} else {
-				return ((double) Math.min(xH, yH) + (double) Math.max(xL, yL))/2;
-			}
+			return Math.min(xH, yH);
+		}
+	}
+
+	private static double MaxXLYL(Integer xL, Integer yL) {
+		if(xL == null) {
+			return yL;
+		} else if (yL == null) {
+			return xL;
+		} else {
+			return Math.max(xL, yL);
 		}
 	}
 }
