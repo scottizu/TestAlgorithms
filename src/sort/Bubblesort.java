@@ -28,13 +28,15 @@ public class Bubblesort {
 	}
 
 	private static void printArray(int start, int end, int[] numbers, String text) {
-		String out = "{";
+		StringBuilder out = new StringBuilder();
+		out.append("{");
 		String del = "";
 		for(int i=start; i < end + 1; i++) {
-			out = out + del + numbers[i] + "";
+			out.append(del);
+			out.append(numbers[i]);
 			del = ",";
 		}
-		out = out + "}";
+		out.append("}");
 		System.out.println(text+":"+out);
 	}
 	

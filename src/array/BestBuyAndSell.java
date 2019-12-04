@@ -1,4 +1,4 @@
-package algorithm;
+package array;
 
 /**
  * Assume stock prices are given in an array and you can pick one day to buy and a different day to sell

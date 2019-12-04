@@ -33,13 +33,15 @@ public class Heapsort {
 	}
 
 	private static void printArray(int start, int end, int[] numbers, String text) {
-		String out = "{";
+		StringBuilder out = new StringBuilder();
+		out.append("{");
 		String del = "";
 		for(int i=start; i < end + 1; i++) {
-			out = out + del + numbers[i] + "";
+			out.append(del);
+			out.append(numbers[i]);
 			del = ",";
 		}
-		out = out + "}";
+		out.append("}");
 		System.out.println(text+":"+out);
 	}
 
@@ -51,10 +53,11 @@ public class Heapsort {
 			int firstAtCurrentLevel = (int) Math.pow(2, currentLevel) - 1;
 			int firstAtNextLevel = (int) Math.pow(2, currentLevel + 1) - 1;
 			
-			String heapout = "";
+			StringBuilder heapout = new StringBuilder();
 			for(int index = firstAtCurrentLevel; index < firstAtNextLevel; index++) {
 				if(index <= end) {
-					heapout = heapout + " " + numbers[index];
+					heapout.append(" ");
+					heapout.append(numbers[index]);
 				}
 			}
 			System.out.println("level:"+currentLevel+" heap:"+heapout);
@@ -74,7 +77,7 @@ public class Heapsort {
 		if(end == 0) {
 			return;
 		}
-		int startingIndex = (int) Math.floor(end+1/2) - 1;
+		int startingIndex = (int) Math.floor((end+1)/2) - 1;
 		
 		// O(n) on inner loop - Though n decreases - Fixing broken heap is O(n)
 		for(int i=startingIndex; i > -1; i--) {

@@ -32,13 +32,15 @@ public class Treesort {
 	}
 
 	private static void printArray(int start, int end, int[] numbers, String text) {
-		String out = "{";
+		StringBuilder out = new StringBuilder();
+		out.append("{");
 		String del = "";
 		for(int i=start; i < end + 1; i++) {
-			out = out + del + numbers[i] + "";
+			out.append(del);
+			out.append(numbers[i]);
 			del = ",";
 		}
-		out = out + "}";
+		out.append("}");
 		System.out.println(text+":"+out);
 	}
 
@@ -51,14 +53,17 @@ public class Treesort {
 		while(foundChildNode) {
 			foundChildNode = false;
 			
-			String out = "";
+			StringBuilder out = new StringBuilder();
 			String del = "";
 			for(TreeSortNode currentNode: currentNodes) {
-				String printedValue = "" + currentNode.value;
+				String printedValue = null;
 				if(currentNode.value == null) {
 					printedValue = "X";
+				} else {
+					printedValue = currentNode.value.toString();
 				}
-				out = out + del + printedValue;
+				out.append(del);
+				out.append(printedValue);
 				del = " ";
 				if(currentNode.left != null) {
 					nextNodes.add(currentNode.left);
